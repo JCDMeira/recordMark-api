@@ -1,5 +1,9 @@
-import express from "express";
+import app from "./src/app.js";
 
-const app = express();
+const port = process.env.PORT || "3333";
 
-app.listen("8080", () => console.log("Acessou"));
+app.listen(port, () =>
+  console.log(
+    `Server online, acesse ${port !== 3333 ? port : "http://localhost:3333"}`
+  )
+);
