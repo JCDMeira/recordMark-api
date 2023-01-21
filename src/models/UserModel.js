@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import bcrpty from "bcryptjs";
 
 const UserSchema = new mongoose.Schema({
-  username: { type: String, required: trusted, unique: true },
+  username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   created_at: { type: Number, required: true },
   updated_at: { type: Number, required: true },
@@ -14,3 +14,4 @@ UserSchema.pre("save", async function encryptPassword() {
 });
 
 const UserModel = mongoose.model("user", UserSchema);
+export default UserModel;
