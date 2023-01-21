@@ -1,11 +1,12 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 
 mongoose.set("strictQuery", true);
 
-mongoose.connect(
-  `mongodb+srv://progApi:progApi@cluster0.jhwjo5u.mongodb.net/recordMark`,
-  { useNewUrlParser: true, useUnifiedTopology: true }
-);
+mongoose.connect(process.env.CONNETIONSTRING, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const db = mongoose.connection;
 
