@@ -33,5 +33,24 @@ class userController {
     }
   }
 
+  static async editUser({ body, params: { id } }, res) {
+    try {
+      const user = UserModel.findByIdAndUpdate(
+        id,
+        {
+          ...body,
+          updated_at: new Date().getTime(),
+        },
+        { returnDocument: "after" }
+      );
+      console.log(user);
+
+      return res
+        .status(200)
+        .json({ message: "User updated sucessfully", user });
+    } catch ({ message }) {
+      return res.status(400).json({ message });
+    }
+  }
 }
 export default userController;
