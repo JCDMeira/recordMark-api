@@ -1,4 +1,5 @@
 import UserModel from "../models/UserModel";
+import bcrypt from "bcryptjs";
 
 class userController {
   static async createUser({ body }, res) {
@@ -35,15 +36,19 @@ class userController {
 
   static async editUser({ body, params: { id } }, res) {
     try {
-      const user = UserModel.findByIdAndUpdate(
+      const user = await UserModel.findByIdAndUpdate(
         id,
         {
           ...body,
+          password: await bcrypt.hash(body.password, 10),
           updated_at: new Date().getTime(),
         },
         { returnDocument: "after" }
       );
-      console.log(user);
+
+      user.password = undefined;
+      user.created_at = undefined;
+      user.__v = undefined;
 
       return res
         .status(200)
