@@ -37,10 +37,13 @@ class userController {
     }
   }
 
-  static async searchUsers(req, res) {
+  static async searchUsers({ query: { username } }, res) {
     try {
-      const allUsers = await UserModel.find({}, { username: 1 });
-      res.status(200).json(allUsers);
+      const user = await UserModel.find({ username }, { username: 1 });
+      if (user.length === 0)
+        return res.status(404).json({ message: "User not found" });
+
+      res.status(200).json(user);
     } catch (message) {
       res.status(400).json({ message });
     }
