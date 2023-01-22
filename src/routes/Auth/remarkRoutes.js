@@ -5,8 +5,8 @@ import Auth from "../../middleware/auth";
 const remarkRouter = express.Router();
 
 remarkRouter.get("/remark", Auth, RemarkController.getRemark);
+remarkRouter.post("/remark", Auth, RemarkController.addRemark);
 remarkRouter.put("/remark/:id", Auth, RemarkController.editRemark);
-remarkRouter.post("/remark/:id", Auth, RemarkController.addRemark);
-remarkRouter.delete("/remark", Auth, RemarkController.deleteRemark);
+remarkRouter.delete("/remark/:id", Auth, RemarkController.deleteRemark);
 
 export default remarkRouter;

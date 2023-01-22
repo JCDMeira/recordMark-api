@@ -12,4 +12,5 @@ const RemarkSchema = mongoose.Schema({
   updated_at: { type: Number, required: true },
 });
 
-const ReemarkModel = mongoose.model("remark", RemarkSchema);
+const RemarkModel = mongoose.model("remark", RemarkSchema);
+export default RemarkModel;

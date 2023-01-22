@@ -18,7 +18,6 @@ function Auth(req, res, next) {
       return res.status(403).json({ message: "Poorly structured token" });
 
     jwt.verify(token, process.env.TOKEN_ENCRYPT, (error, decod) => {
-      console.log(error);
       if (error) return res.status(401).json({ message: "Invalid token" });
 
       req.userId = decod.id;
