@@ -83,7 +83,15 @@ class RemarkController {
     }
   }
 
-  static async deleteRemark(req, res) {}
+  static async deleteRemark({ params: { id } }, res) {
+    try {
+      await RemarkModel.findByIdAndDelete(id);
+
+      return res.status(200).json({ message: "Remark sucessfuly deleted" });
+    } catch ({ message }) {
+      return res.status(400).json({ message });
+    }
+  }
 }
 
 export default RemarkController;
