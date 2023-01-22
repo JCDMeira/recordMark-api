@@ -1,5 +1,8 @@
 import UserModel from "../models/UserModel";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+
+const toJSON = (value) => JSON.parse(JSON.stringify(value));
 
 class userController {
   static async createUser({ body }, res) {
@@ -26,6 +29,15 @@ class userController {
   }
 
   static async getAllUsers(req, res) {
+    try {
+      const allUsers = await UserModel.find({}, { username: 1 });
+      res.status(200).json(allUsers);
+    } catch (message) {
+      res.status(400).json({ message });
+    }
+  }
+
+  static async searchUsers(req, res) {
     try {
       const allUsers = await UserModel.find({}, { username: 1 });
       res.status(200).json(allUsers);
@@ -66,5 +78,36 @@ class userController {
       return res.status(400).json({ message });
     }
   }
+
+  static async login({ body: { username, password } }, res) {
+    try {
+      const user = await UserModel.findOne(
+        { username },
+        { __v: 0, created_at: 0, updated_at: 0 }
+      ).select("+password");
+
+      if (!user)
+        return res
+          .status(400)
+          .json({ message: "Invalid email and/or password" });
+
+      if (!(await bcrypt.compare(password, user.password)))
+        return res
+          .status(400)
+          .json({ message: "Invalid email and/or password" });
+
+      user.password = undefined;
+
+      const token = jwt.sign({ id: user._id }, process.env.TOKEN_ENCRYPT, {
+        expiresIn: "2h",
+      });
+
+      return res.status(200).json({ ...toJSON(user), token });
+    } catch ({ message }) {
+      return res.status(400).json({ message });
+    }
+  }
+
+  static async logout(req, res) {}
 }
 export default userController;

@@ -4,6 +4,6 @@ import userController from "../controllers/userController";
 const globalRoutes = express.Router();
 
 globalRoutes.post("/user/create", userController.createUser);
-globalRoutes.get("/user/login", (req, res) => res.json({ message: "wow" }));
+globalRoutes.post("/user/login", userController.login);
 
 export default globalRoutes;
