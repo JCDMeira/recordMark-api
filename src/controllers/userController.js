@@ -108,6 +108,21 @@ class userController {
     }
   }
 
-  static async logout(req, res) {}
+  static async logout({ body: { username } }, res) {
+    try {
+      const user = UserModel.findOne(
+        { username },
+        { __v: 0, created_at: 0, password: 0, updated_at: 0 }
+      );
+
+      const token = jwt.sign({ id: user._id }, process.env.TOKEN_ENCRYPT, {
+        expiresIn: "120ms",
+      });
+
+      return res.status(200).json({ message: "You have been logged out" });
+    } catch ({ message }) {
+      return res.status(400).json({ message });
+    }
+  }
 }
 export default userController;
