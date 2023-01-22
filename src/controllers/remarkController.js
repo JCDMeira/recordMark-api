@@ -55,7 +55,33 @@ class RemarkController {
     }
   }
 
-  static async editRemark(req, res) {}
+  static async editRemark({ body }, res) {
+    try {
+      const { min, seg, ms, created_by } = body;
+
+      if (min > 60 || seg >= 60 || ms >= 1000)
+        return res.status(400).json({ message: "Invalid input format" });
+
+      const allMs = min * 60 * 1000 + seg * 1000 + ms;
+      const timeInString = `${formatTime(min)}:${formatTime(seg)}.${formatMs(
+        ms
+      )}`;
+
+      const date = new Date().getTime();
+
+      const remark = await RemarkModel.findOneAndUpdate({
+        time: allMs,
+        time_to_string: timeInString,
+        updated_at: date,
+      });
+
+      return res
+        .status(201)
+        .json({ remark, message: "Remark sucessfuly updated" });
+    } catch ({ message }) {
+      return res.status(400).json({ message });
+    }
+  }
 
   static async deleteRemark(req, res) {}
 }
