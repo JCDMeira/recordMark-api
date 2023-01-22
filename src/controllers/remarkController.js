@@ -38,7 +38,22 @@ class RemarkController {
     }
   }
 
-  static async getRemark(req, res) {}
+  static async getRemark({ query: { userId } }, res) {
+    try {
+      const remarks = await RemarkModel.find(
+        { created_by: userId },
+        {
+          _id: 1,
+          time: 1,
+          time_to_string: 1,
+        }
+      );
+
+      return res.status(200).json({ remarks });
+    } catch ({ message }) {
+      return res.status(400).json({ message });
+    }
+  }
 
   static async editRemark(req, res) {}
 
