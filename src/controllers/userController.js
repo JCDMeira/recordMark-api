@@ -11,11 +11,11 @@ class userController {
       const date = new Date().getTime();
 
       if (/\s/g.test(username))
-        res.status(400).json({ message: "Invalid format" });
+        return res.status(400).json({ message: "Invalid format" });
 
       const isUnic = await UserModel.find({ username });
       if (isUnic.length !== 0)
-        res.status(400).json({ message: "This username alredy exist" });
+        return res.status(400).json({ message: "This username alredy exist" });
 
       const result = await UserModel.create({
         ...body,
