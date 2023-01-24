@@ -38,7 +38,7 @@ class RemarkController {
     }
   }
 
-  static async getRemark({ query: { userId } }, res) {
+  static async getRemark({ query: { userId, sort } }, res) {
     try {
       const remarks = await RemarkModel.find(
         { created_by: userId },
@@ -48,6 +48,10 @@ class RemarkController {
           time_to_string: 1,
         }
       );
+
+      if (sort === "true") {
+        remarks.sort((solve1, solve2) => solve1.time - solve2.time);
+      }
 
       return res.status(200).json({ remarks });
     } catch ({ message }) {
