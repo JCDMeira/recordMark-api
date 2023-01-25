@@ -59,7 +59,7 @@ class RemarkController {
     }
   }
 
-  static async editRemark({ body }, res) {
+  static async editRemark({ body, params: { id } }, res) {
     try {
       const { min, seg, ms, created_by } = body;
 
@@ -73,11 +73,17 @@ class RemarkController {
 
       const date = new Date().getTime();
 
-      const remark = await RemarkModel.findOneAndUpdate({
-        time: allMs,
-        time_to_string: timeInString,
-        updated_at: date,
-      });
+      const remark = await RemarkModel.findByIdAndUpdate(
+        id,
+        {
+          time: allMs,
+          time_to_string: timeInString,
+          updated_at: date,
+        },
+        { returnDocument: "after" }
+      );
+
+      remark.__v = undefined;
 
       return res
         .status(201)
