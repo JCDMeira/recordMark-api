@@ -7,7 +7,7 @@ const userRoutes = express.Router();
 userRoutes.get("/user/list", Auth, userController.getAllUsers);
 userRoutes.get("/user/search", Auth, userController.searchUsers);
 userRoutes.put("/user/edit/:id", Auth, userController.editUser);
-userRoutes.delete("/user/edit/:id", Auth, userController.deletUser);
+userRoutes.delete("/user/delete/:id", Auth, userController.deletUser);
 userRoutes.post("/user/logout", Auth, userController.logout);
 
 export default userRoutes;

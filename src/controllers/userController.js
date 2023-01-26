@@ -54,6 +54,14 @@ class userController {
 
   static async editUser({ body, params: { id } }, res) {
     try {
+      const { username } = body;
+      if (/\s/g.test(username))
+        return res.status(400).json({ message: "Invalid format" });
+
+      const isUnic = await UserModel.find({ username });
+      if (isUnic.length !== 0)
+        return res.status(400).json({ message: "This username alredy exist" });
+
       const user = await UserModel.findByIdAndUpdate(
         id,
         {
