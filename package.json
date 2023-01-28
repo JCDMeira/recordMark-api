@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev_local": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_ENV=production nodemon server.js",
     "dev": "NODE_ENV=development nodemon server.js",

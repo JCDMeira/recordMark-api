@@ -1,7 +1,7 @@
 import app from "./src/app.js";
 import routes from "./src/routes/index.js";
 
-app.use("/.netlify/functions/server", routes); // path must route to lambda
+// app.use("/.netlify/functions/server", routes); // path must route to lambda
 
 const port = process.env.PORT || "3333";
 

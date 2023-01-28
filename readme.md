@@ -30,14 +30,10 @@ Enfoca na marcação de solves de cubos 3x3, por isso o tempo é direcionado com
 
 <br />
 
-# 📝 Procedimentos de instalação <a name="id06"></a>
-
-<br />
-
 Clone este repositório usando o comando:
 
 ```bash
-git clone https://github.com/JCDMeira/teste-questionario.git
+git clone https://github.com/JCDMeira/recordMark-api.git
 ```
 
 Na pasta do projeto instale as dependências com uso do npm ou yarn
