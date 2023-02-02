@@ -1,5 +1,4 @@
-import app from "./src/app.js";
-import routes from "./src/routes/index.js";
+import app from "./express/api.js";
 
 const port = process.env.PORT || "3333";
 

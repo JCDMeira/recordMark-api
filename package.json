@@ -2,12 +2,12 @@
   "name": "recordmark-api",
   "version": "1.0.0",
   "description": "",
-  "main": "./src/app.js",
+  "main": "./express/api.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
     "dev": "NODE_ENV=development nodemon server.js",
-    "build": "./node_modules/.bin/netlify-lambda build src"
+    "build": "./node_modules/.bin/netlify-lambda build express"
   },
   "author": "",
   "license": "ISC",
