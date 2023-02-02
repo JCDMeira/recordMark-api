@@ -1,4 +1,7 @@
 import express from "express";
+import servless from "serverless-http";
+import cors from "cors";
+import "../src/config/dbConnect.js";
 import globalRoutes from "../src/routes/routes.js";
 import userRoutes from "../src/routes/Auth/userRoutes.js";
 import remarkRouter from "../src/routes/Auth/remarkRoutes.js";
@@ -13,7 +16,6 @@ const routes = (app) => {
   app.use(userRoutes);
   app.use(remarkRouter);
 };
-app.use("/.netlify/functions/api", routes); // path must route to lambda
 
 export default app;
 export const handler = servless(app);
