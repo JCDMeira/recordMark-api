@@ -11,7 +11,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use("/api", globalRoutes);
+app.use("/api", (req, res) => res.json({ message: "hello" }));
+// app.use(globalRoutes);
 // app.use("/api", userRoutes);
 // app.use("/api", remarkRouter);
 
