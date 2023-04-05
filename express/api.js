@@ -12,8 +12,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api", globalRoutes);
-app.use("/api", userRoutes);
-app.use("/api", remarkRouter);
+// app.use("/api", userRoutes);
+// app.use("/api", remarkRouter);
 
 export default app;
 export const handler = servless(app);
